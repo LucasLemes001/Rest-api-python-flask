@@ -26,7 +26,7 @@ class LojasID(MethodView):
     @jwt_required(fresh=True)
     def delete(self,id_loja):
         jwt = get_jwt()
-        if not jwt.identity == "is_admin":
+        if not jwt.get("is_admin"):
             abort(401, message="You're not an Admin! Admin privilege required!")
 
         loja = LojasModelo.query.get_or_404(id_loja)
@@ -43,7 +43,7 @@ class Lojas(MethodView):
     def get(self):
         return LojasModelo.query.all()
     
-    @jwt_required()
+    @jwt_required(fresh=True)
     @blp.arguments(LojaSchema)
     @blp.response(201, LojaSchema)
     def post(self, dados):

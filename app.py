@@ -34,7 +34,7 @@ def create_app(db_url=None):
     jwt = JWTManager(app)
     @jwt.additional_claims_loader
     def additional_claims_to_jwt(identity):
-        # Look into the detabse and see whether the user is an admin
+        # Look into the detabase and see whether the user is an admin
         if identity == 1:
             return {"is_admin": True}
         return {"is_admin": False}
